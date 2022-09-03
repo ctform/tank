@@ -15,14 +15,14 @@ public class MyTank {
     //tank持有MyFrame的引用以赋值子弹
     private MyFrame frame;
 
-    public MyTank(int x, int y, DirectTypeNum directTypeNum,MyFrame frame) {
+    public MyTank(int x, int y, DirectTypeNum directTypeNum, MyFrame frame) {
         this.x = x;
         this.y = y;
         this.tankDirect = directTypeNum;
         this.frame = frame;
     }
 
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         Color color = g.getColor();
         g.setColor(Color.BLACK);
         g.fillRect(x, y, 80, 80);
@@ -35,7 +35,7 @@ public class MyTank {
     }
 
     private void move() {
-        if(isMoving) {
+        if (isMoving) {
             switch (tankDirect) {
                 case UP:
                     y -= speedLevel * moveUnit;
@@ -65,6 +65,6 @@ public class MyTank {
      * 直接给定子弹结果限定了方法只能在返回值上做文章,而现在有很多可能
      */
     public void fire() {
-        frame.bullet = new Bullet(x,y,tankDirect);
+        frame.bullets.add(new Bullet(x, y, tankDirect, frame));
     }
 }

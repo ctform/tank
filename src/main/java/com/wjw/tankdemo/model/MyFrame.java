@@ -2,16 +2,20 @@ package com.wjw.tankdemo.model;
 
 import com.wjw.tankdemo.enums.DirectTypeNum;
 
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class MyFrame extends Frame {
     public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
     private MyTank tank = new MyTank(200, 200, DirectTypeNum.UP, this);
-    public Bullet bullet;
+    public List<Bullet> bullets = new ArrayList<>();
 
     public MyFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -32,9 +36,14 @@ public class MyFrame extends Frame {
     public void paint(Graphics g) {
         tank.paint(g);
         //当子弹发射时 才进行子弹的绘制
-        if(bullet != null){
-            bullet.paint(g);
+        for (int i = 0; i < bullets.size(); i++) {
+            //迭代器和foreach方法内部不能直接调用集合.remove()删除元素会报错
+            //迭代器原生remove()方法在此处不能用
+            bullets.get(i).paint(g);
         }
+        Font f = new Font("bullet number font", Font.BOLD, 30);
+        g.setFont(f);
+        g.drawString("当前存活子弹:" + bullets.size(), 40, 80);
         System.out.println("paint");
     }
 
@@ -132,4 +141,6 @@ public class MyFrame extends Frame {
         paint(graphicsOff);
         g.drawImage(offScreenImage, 0, 0, null);
     }
+
+
 }
