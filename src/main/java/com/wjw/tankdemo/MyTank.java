@@ -5,11 +5,12 @@ import java.awt.*;
 public class MyTank {
     private int x;
     private int y;
-    int speed = 1;
-    final int moveUnit = 2;
+    private static final int speedLevel = 1;
+    private static final int moveUnit = 2;
     private DirectTypeNum tankDirect;
     //坦克是否移动的状态表示
     private boolean isMoving = false;
+    Bullet bullet = new Bullet(300, 300, DirectTypeNum.RIGHT);
 
     public MyTank(int x, int y, DirectTypeNum directTypeNum) {
         this.x = x;
@@ -19,6 +20,7 @@ public class MyTank {
 
     public void paint(Graphics g){
         g.fillRect(x, y, 80, 80);
+        bullet.paint(g);
         move();
     }
 
@@ -30,16 +32,16 @@ public class MyTank {
         if(isMoving) {
             switch (tankDirect) {
                 case UP:
-                    y -= speed * moveUnit;
+                    y -= speedLevel * moveUnit;
                     break;
                 case DOWN:
-                    y += speed * moveUnit;
+                    y += speedLevel * moveUnit;
                     break;
                 case LEFT:
-                    x -= speed * moveUnit;
+                    x -= speedLevel * moveUnit;
                     break;
                 case RIGHT:
-                    x += speed * moveUnit;
+                    x += speedLevel * moveUnit;
                     break;
                 default:
                     break;
