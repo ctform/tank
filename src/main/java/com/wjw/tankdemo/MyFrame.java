@@ -7,9 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class MyFrame extends Frame {
-
-
-    private MyTank tank = new MyTank();
+    private MyTank tank = new MyTank(200,200,DirectTypeNum.NONE);
 
     public MyFrame() {
         setSize(800, 600);
