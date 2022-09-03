@@ -59,6 +59,11 @@ public class MyTank {
         this.tankDirect = tankDirect;
     }
 
+    /**
+     * 开火方法,使用引用赋值子弹给frame,为什么不直接return子弹给frame接收
+     * 在未来扩展时候可以使用策略模式,根据不同情况给出一个不同的开火结果,而不是现在直接给定子弹结果
+     * 直接给定子弹结果限定了方法只能在返回值上做文章,而现在有很多可能
+     */
     public void fire() {
         frame.bullet = new Bullet(x,y,tankDirect);
     }
