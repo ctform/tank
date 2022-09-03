@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 指定文件 ###
+mvnw
+mvnw.cmd

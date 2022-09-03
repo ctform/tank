@@ -3,14 +3,13 @@ package com.wjw.tankdemo;
 import org.springframework.core.annotation.Order;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class MyFrame extends Frame {
     private int x = 200;
     private int y = 200;
+    final int moveUnit = 2;
+    int speed = 1;
 
     public MyFrame() {
         setSize(800, 600);
@@ -24,24 +23,71 @@ public class MyFrame extends Frame {
             }
         });
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                x += 10;
-                repaint();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                y += 10;
-                repaint();
-            }
-        });
+        addKeyListener(new MyKeyListener());
     }
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x,y,80,80);
+        MyKeyListener keyListener = (MyKeyListener) getKeyListeners()[0];
+        keyListener.reLocate();
+        g.fillRect(x, y, 80, 80);
         System.out.println("paint");
+    }
+
+
+    class MyKeyListener extends KeyAdapter {
+        boolean bL = false;
+        boolean bU = false;
+        boolean bR = false;
+        boolean bD = false;
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_LEFT:
+                    bL = true;
+                    break;
+                case KeyEvent.VK_UP:
+                    bU = true;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    bD = true;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    bR = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_LEFT:
+                    bL = false;
+                    break;
+                case KeyEvent.VK_UP:
+                    bU = false;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    bD = false;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    bR = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void reLocate() {
+            if(bL) x -= speed * moveUnit;
+            if(bU) y -= speed * moveUnit;
+            if(bD) y += speed * moveUnit;
+            if(bR) x += speed * moveUnit;
+        }
     }
 }
