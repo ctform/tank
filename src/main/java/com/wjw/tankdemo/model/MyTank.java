@@ -12,12 +12,14 @@ public class MyTank {
     private DirectTypeNum tankDirect;
     //坦克是否移动的状态表示
     private boolean isMoving = false;
-    Bullet bullet = new Bullet(300, 300, DirectTypeNum.RIGHT);
+    //tank持有MyFrame的引用以赋值子弹
+    private MyFrame frame;
 
-    public MyTank(int x, int y, DirectTypeNum directTypeNum) {
+    public MyTank(int x, int y, DirectTypeNum directTypeNum,MyFrame frame) {
         this.x = x;
         this.y = y;
         this.tankDirect = directTypeNum;
+        this.frame = frame;
     }
 
     public void paint(Graphics g){
@@ -25,7 +27,6 @@ public class MyTank {
         g.setColor(Color.BLACK);
         g.fillRect(x, y, 80, 80);
         g.setColor(color);
-        bullet.paint(g);
         move();
     }
 
@@ -56,5 +57,9 @@ public class MyTank {
 
     public void setTankDirect(DirectTypeNum tankDirect) {
         this.tankDirect = tankDirect;
+    }
+
+    public void fire() {
+        frame.bullet = new Bullet(x,y,tankDirect);
     }
 }

@@ -10,7 +10,8 @@ import java.awt.event.WindowEvent;
 
 public class MyFrame extends Frame {
     public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
-    private MyTank tank = new MyTank(200, 200, DirectTypeNum.UP);
+    private MyTank tank = new MyTank(200, 200, DirectTypeNum.UP, this);
+    public Bullet bullet;
 
     public MyFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -30,6 +31,10 @@ public class MyFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         tank.paint(g);
+        //当子弹发射时 才进行子弹的绘制
+        if(bullet != null){
+            bullet.paint(g);
+        }
         System.out.println("paint");
     }
 
@@ -78,6 +83,8 @@ public class MyFrame extends Frame {
                 case KeyEvent.VK_RIGHT:
                     bR = false;
                     break;
+                case KeyEvent.VK_CONTROL:
+                    tank.fire();
                 default:
                     break;
             }
@@ -111,6 +118,7 @@ public class MyFrame extends Frame {
 
     //利用双缓冲技术解决屏幕闪烁问题
     Image offScreenImage = null;
+
     @Override
     public void update(Graphics g) {
         if (offScreenImage == null) {
