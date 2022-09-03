@@ -7,7 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class MyFrame extends Frame {
-    private MyTank tank = new MyTank(200,200,DirectTypeNum.NONE);
+    private MyTank tank = new MyTank(200,200,DirectTypeNum.UP);
 
     public MyFrame() {
         setSize(800, 600);
@@ -82,23 +82,27 @@ public class MyFrame extends Frame {
         }
 
         private void setTankDirect(MyTank tank) {
-            if (bL) {
-                tank.setTankDirect(DirectTypeNum.LEFT);
-                return;
+            if(!bL && !bU && !bD && !bR) {
+                tank.setMoving(false);
+            }else {
+                tank.setMoving(true);
+                if (bL) {
+                    tank.setTankDirect(DirectTypeNum.LEFT);
+                    return;
+                }
+                if (bU) {
+                    tank.setTankDirect(DirectTypeNum.UP);
+                    return;
+                }
+                if (bD) {
+                    tank.setTankDirect(DirectTypeNum.DOWN);
+                    return;
+                }
+                if (bR) {
+                    tank.setTankDirect(DirectTypeNum.RIGHT);
+                    return;
+                }
             }
-            if (bU) {
-                tank.setTankDirect(DirectTypeNum.UP);
-                return;
-            }
-            if (bD) {
-                tank.setTankDirect(DirectTypeNum.DOWN);
-                return;
-            }
-            if (bR) {
-                tank.setTankDirect(DirectTypeNum.RIGHT);
-                return;
-            }
-            tank.setTankDirect(DirectTypeNum.NONE);
         }
     }
 }

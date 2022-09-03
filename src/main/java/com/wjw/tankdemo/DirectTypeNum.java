@@ -1,5 +1,5 @@
 package com.wjw.tankdemo;
 
 public enum DirectTypeNum {
-    LEFT,RIGHT,UP,DOWN,NONE;
+    LEFT,RIGHT,UP,DOWN;
 }

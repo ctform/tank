@@ -7,7 +7,9 @@ public class MyTank {
     private int y;
     int speed = 1;
     final int moveUnit = 2;
-    private DirectTypeNum tankDirect = DirectTypeNum.NONE;
+    private DirectTypeNum tankDirect;
+    //坦克是否移动的状态表示
+    private boolean isMoving = false;
 
     public MyTank(int x, int y, DirectTypeNum directTypeNum) {
         this.x = x;
@@ -17,21 +19,31 @@ public class MyTank {
 
     public void paint(Graphics g){
         g.fillRect(x, y, 80, 80);
-        switch (tankDirect) {
-            case UP:
-                y -= speed * moveUnit;
-                break;
-            case DOWN:
-                y += speed * moveUnit;
-                break;
-            case LEFT:
-                x -= speed * moveUnit;
-                break;
-            case RIGHT:
-                x += speed * moveUnit;
-                break;
-            default:
-                break;
+        move();
+    }
+
+    public void setMoving(boolean moving) {
+        isMoving = moving;
+    }
+
+    private void move() {
+        if(isMoving) {
+            switch (tankDirect) {
+                case UP:
+                    y -= speed * moveUnit;
+                    break;
+                case DOWN:
+                    y += speed * moveUnit;
+                    break;
+                case LEFT:
+                    x -= speed * moveUnit;
+                    break;
+                case RIGHT:
+                    x += speed * moveUnit;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
