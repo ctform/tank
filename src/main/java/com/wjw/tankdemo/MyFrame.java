@@ -1,16 +1,15 @@
 package com.wjw.tankdemo;
 
-import org.springframework.core.annotation.Order;
-
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MyFrame extends Frame {
-    private int x = 200;
-    private int y = 200;
-    final int moveUnit = 2;
-    private DirectTypeNum tankDirect = DirectTypeNum.NONE;
-    int speed = 1;
+
+
+    private MyTank tank = new MyTank();
 
     public MyFrame() {
         setSize(800, 600);
@@ -29,23 +28,7 @@ public class MyFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x, y, 80, 80);
-        switch (tankDirect) {
-            case UP:
-                y -= speed * moveUnit;
-                break;
-            case DOWN:
-                y += speed * moveUnit;
-                break;
-            case LEFT:
-                x -= speed * moveUnit;
-                break;
-            case RIGHT:
-                x += speed * moveUnit;
-                break;
-            default:
-                break;
-        }
+        tank.paint(g);
         System.out.println("paint");
     }
 
@@ -75,8 +58,7 @@ public class MyFrame extends Frame {
                 default:
                     break;
             }
-
-            setTankDirect();
+            setTankDirect(tank);
         }
 
         @Override
@@ -98,27 +80,27 @@ public class MyFrame extends Frame {
                 default:
                     break;
             }
-            setTankDirect();
+            setTankDirect(tank);
         }
 
-        private void setTankDirect() {
+        private void setTankDirect(MyTank tank) {
             if (bL) {
-                tankDirect = DirectTypeNum.LEFT;
+                tank.setTankDirect(DirectTypeNum.LEFT);
                 return;
             }
             if (bU) {
-                tankDirect = DirectTypeNum.UP;
+                tank.setTankDirect(DirectTypeNum.UP);
                 return;
             }
             if (bD) {
-                tankDirect = DirectTypeNum.DOWN;
+                tank.setTankDirect(DirectTypeNum.DOWN);
                 return;
             }
             if (bR) {
-                tankDirect = DirectTypeNum.RIGHT;
+                tank.setTankDirect(DirectTypeNum.RIGHT);
                 return;
             }
-            tankDirect = DirectTypeNum.NONE;
+            tank.setTankDirect(DirectTypeNum.NONE);
         }
     }
 }
