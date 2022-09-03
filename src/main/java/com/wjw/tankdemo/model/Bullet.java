@@ -1,4 +1,6 @@
-package com.wjw.tankdemo;
+package com.wjw.tankdemo.model;
+
+import com.wjw.tankdemo.enums.DirectTypeNum;
 
 import java.awt.*;
 

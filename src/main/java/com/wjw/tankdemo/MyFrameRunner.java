@@ -1,6 +1,8 @@
 package com.wjw.tankdemo;
 
-public class MyFrameTest {
+import com.wjw.tankdemo.model.MyFrame;
+
+public class MyFrameRunner {
     public static void main(String[] args) throws InterruptedException {
         MyFrame myFrame = new MyFrame();
         do {

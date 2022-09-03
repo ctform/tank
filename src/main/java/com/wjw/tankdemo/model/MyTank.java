@@ -1,4 +1,6 @@
-package com.wjw.tankdemo;
+package com.wjw.tankdemo.model;
+
+import com.wjw.tankdemo.enums.DirectTypeNum;
 
 import java.awt.*;
 
@@ -19,7 +21,10 @@ public class MyTank {
     }
 
     public void paint(Graphics g){
+        Color color = g.getColor();
+        g.setColor(Color.BLACK);
         g.fillRect(x, y, 80, 80);
+        g.setColor(color);
         bullet.paint(g);
         move();
     }
