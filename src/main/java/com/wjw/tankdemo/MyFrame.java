@@ -9,6 +9,7 @@ public class MyFrame extends Frame {
     private int x = 200;
     private int y = 200;
     final int moveUnit = 2;
+    private DirectTypeNum tankDirect = DirectTypeNum.NONE;
     int speed = 1;
 
     public MyFrame() {
@@ -28,9 +29,23 @@ public class MyFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        MyKeyListener keyListener = (MyKeyListener) getKeyListeners()[0];
-        keyListener.reLocate();
         g.fillRect(x, y, 80, 80);
+        switch (tankDirect) {
+            case UP:
+                y -= speed * moveUnit;
+                break;
+            case DOWN:
+                y += speed * moveUnit;
+                break;
+            case LEFT:
+                x -= speed * moveUnit;
+                break;
+            case RIGHT:
+                x += speed * moveUnit;
+                break;
+            default:
+                break;
+        }
         System.out.println("paint");
     }
 
@@ -60,6 +75,8 @@ public class MyFrame extends Frame {
                 default:
                     break;
             }
+
+            setTankDirect();
         }
 
         @Override
@@ -81,13 +98,27 @@ public class MyFrame extends Frame {
                 default:
                     break;
             }
+            setTankDirect();
         }
 
-        public void reLocate() {
-            if(bL) x -= speed * moveUnit;
-            if(bU) y -= speed * moveUnit;
-            if(bD) y += speed * moveUnit;
-            if(bR) x += speed * moveUnit;
+        private void setTankDirect() {
+            if (bL) {
+                tankDirect = DirectTypeNum.LEFT;
+                return;
+            }
+            if (bU) {
+                tankDirect = DirectTypeNum.UP;
+                return;
+            }
+            if (bD) {
+                tankDirect = DirectTypeNum.DOWN;
+                return;
+            }
+            if (bR) {
+                tankDirect = DirectTypeNum.RIGHT;
+                return;
+            }
+            tankDirect = DirectTypeNum.NONE;
         }
     }
 }
